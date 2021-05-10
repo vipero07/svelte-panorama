@@ -8,8 +8,13 @@
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://github.com/vipero07/svelte-panorama",
-  "repository": {"type": "git", "url": "https://github.com/vipero07/svelte-panorama"},
-  "bugs": {"url": "https://github.com/vipero07/svelte-panorama/issues"},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vipero07/svelte-panorama"
+  },
+  "bugs": {
+    "url": "https://github.com/vipero07/svelte-panorama/issues"
+  },
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "npm run build"
