@@ -1,0 +1,18 @@
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    precision highp int;
+#else
+    precision mediump float;
+    precision mediump int;
+#endif
+
+uniform sampler2D tMap;
+
+varying vec2 vUv;
+
+void main(){
+    vec3 tex = texture2D(tMap, vUv).rgb;
+
+    gl_FragColor.rgb = tex;
+    gl_FragColor.a = 1.0;
+}
