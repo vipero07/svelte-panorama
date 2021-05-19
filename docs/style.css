@@ -29,6 +29,7 @@ svelte-panorama {
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  margin: 0.25rem;
   background: hsla(0, 0%, 100%, 0.6);
 }
