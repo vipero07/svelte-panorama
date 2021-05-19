@@ -1,13 +1,13 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "svelte-panorama-component",
-  "description": "Small footprint fast 360 degree equirectangular image viewer",
+  "description": "Small footprint fast responsive 360 degree equirectangular image viewer",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "author": "Eitan Stadtlander-Miller",
   "main": "dist/index.js",
   "license": "MIT",
-  "homepage": "https://github.com/vipero07/svelte-panorama",
+  "homepage": "https://vipero07.github.io/svelte-panorama/",
   "repository": {
     "type": "git",
     "url": "https://github.com/vipero07/svelte-panorama"
