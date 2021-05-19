@@ -28,3 +28,7 @@ Add .js or .mjs file however you want, either in a bundler or directly to the pa
 ```
 <svelte-panorama src="some-equirectangular-360-image.jpg" alt="Pretty Sky"></svelte-panorama>
 ```
+
+A sample of the web component working can be found on [this github page](https://vipero07.github.io/svelte-panorama/) using the following images [outdoor 360](<https://commons.wikimedia.org/wiki/File:Veste_Oberhaus_(Passau,_full_spherical_panoramic_image,_equirectangular_projection).jpg>) and [indoor 360](<https://commons.wikimedia.org/wiki/File:Rheingauer_Dom,_Geisenheim,_360_Panorama_(Equirectangular_projection).jpg>)
+
+Feel free to check out the source at [docs/index.html](https://github.com/vipero07/svelte-panorama/blob/master/docs/index.html)
