@@ -8,9 +8,15 @@ h4 {
   text-align: center;
 }
 
+svelte-panorama {
+  cursor: grab;
+}
+
 .panorama {
   width: 640px;
   height: 320px;
+  max-width: 90%;
+  max-height: 90%;
   margin: 0 auto;
   position: relative;
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
@@ -21,7 +27,8 @@ h4 {
 
 .attribute {
   position: absolute;
-  bottom: 0.25rem;
-  right: 0.25rem;
+  bottom: 0;
+  right: 0;
+  padding: 0.25rem;
   background: hsla(0, 0%, 100%, 0.6);
 }
