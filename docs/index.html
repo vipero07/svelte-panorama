@@ -14,31 +14,41 @@
     </head>
 	<body>
 		<main>
-			<h3>Svelte-Panorama</h3>
-			<p>
-				A very lightweight (~63 KB uncompressed) standalone 360 equirectangular image viewer. The source code can be found <a href="https://github.com/vipero07/svelte-panorama">here</a>. An npm package for use in a bundler with react, vue, angular, svelte or as a standalone web component can be found <a href="https://www.npmjs.com/package/svelte-panorama-component">here</a>.
-			</p>
-			<p>
-				This page can be resized, the web component will properly adjust to smaller screen sizes. Feel free to try this on mobile devices too.
-			</p>
+			<header>
+				<h3>Svelte-Panorama</h3>
+				<p>
+					A very lightweight (~63 KB uncompressed) standalone 360 equirectangular image viewer. The source code can be found <a href="https://github.com/vipero07/svelte-panorama">here</a>. An npm package for use in a bundler with react, vue, angular, svelte or as a standalone web component can be found <a href="https://www.npmjs.com/package/svelte-panorama-component">here</a>.
+				</p>
+				<p>
+					This page can be resized, the web component will properly adjust to smaller screen sizes. Feel free to try this on mobile devices too.
+				</p>
+			</header>
 
-			<h4>Outdoor smaller file example ~296 KB</h4>
-			<h5>FOV = 30</h5>
-			<div class="panorama-wrapper">
-				<svelte-panorama class="panorama" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Veste_Oberhaus_%28Passau%2C_full_spherical_panoramic_image%2C_equirectangular_projection%29.jpg/2560px-Veste_Oberhaus_%28Passau%2C_full_spherical_panoramic_image%2C_equirectangular_projection%29.jpg" alt="Some Outdoor Location"></svelte-panorama>
-				<div class="attribute">
-					<a href="https://commons.wikimedia.org/wiki/File:Veste_Oberhaus_(Passau,_full_spherical_panoramic_image,_equirectangular_projection).jpg">Jürgen Matern / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+			<section>
+				<header>
+					<h4>Outdoor smaller file example ~296 KB</h4>
+					<h5>FOV is 30</h5>
+				</header>
+				<div class="panorama-wrapper">
+					<svelte-panorama class="panorama" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Veste_Oberhaus_%28Passau%2C_full_spherical_panoramic_image%2C_equirectangular_projection%29.jpg/2560px-Veste_Oberhaus_%28Passau%2C_full_spherical_panoramic_image%2C_equirectangular_projection%29.jpg" alt="Some Outdoor Location"></svelte-panorama>
+					<div class="attribute">
+						<a href="https://commons.wikimedia.org/wiki/File:Veste_Oberhaus_(Passau,_full_spherical_panoramic_image,_equirectangular_projection).jpg">Jürgen Matern / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+					</div>
 				</div>
-			</div>
+			</section>
 
-			<h4>Indoor larger file example ~13 MB</h4>
-			<h5>FOV = 45</h5>
-			<div class="panorama-wrapper">
-				<svelte-panorama class="panorama" fov="45" src="https://upload.wikimedia.org/wikipedia/commons/1/18/Rheingauer_Dom%2C_Geisenheim%2C_360_Panorama_%28Equirectangular_projection%29.jpg" alt="Some Indoor Location"></svelte-panorama>
-				<div class="attribute">
-					<a href="https://commons.wikimedia.org/wiki/File:Rheingauer_Dom,_Geisenheim,_360_Panorama_(Equirectangular_projection).jpg">DXR</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+			<section>
+				<header>
+					<h4>Indoor larger file example ~13 MB</h4>
+					<h5>FOV is 45</h5>
+				</header>
+				<div class="panorama-wrapper">
+					<svelte-panorama class="panorama" fov="45" src="https://upload.wikimedia.org/wikipedia/commons/1/18/Rheingauer_Dom%2C_Geisenheim%2C_360_Panorama_%28Equirectangular_projection%29.jpg" alt="Some Indoor Location"></svelte-panorama>
+					<div class="attribute">
+						<a href="https://commons.wikimedia.org/wiki/File:Rheingauer_Dom,_Geisenheim,_360_Panorama_(Equirectangular_projection).jpg">DXR</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons
+					</div>
 				</div>
-			</div>
+			</section>
 		</main>
 	</body>
 </html>
