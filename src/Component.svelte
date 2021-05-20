@@ -17,8 +17,11 @@
 <script>
   import { onMount } from "svelte";
 
-  export let src;
+  let className = "";
   export let alt = "Panoramic View";
+  export { className as class };
+  export let fov = 30;
+  export let src;
 
   let clientHeight;
   let clientWidth;
@@ -30,7 +33,7 @@
   let gl;
 
   $: aspect = clientWidth / clientHeight;
-  $: camera = gl && makeCamera();
+  $: camera = gl && wrapper && makeCamera();
   $: controls = camera && canvas && makeControls();
   $: scene = src && gl && makeScene();
   $: if (renderer && aspect) {
@@ -42,7 +45,7 @@
 
   function makeCamera() {
     const camera = new Camera(gl, {
-      fov: 30,
+      fov: fov,
       aspect: wrapper.clientWidth / wrapper.clientHeight,
     });
     camera.position.set(0, 0, 1);
@@ -101,7 +104,13 @@
   });
 </script>
 
-<div bind:this={wrapper} aria-label={alt} bind:clientHeight bind:clientWidth>
+<div
+  aria-label={alt}
+  class={className}
+  bind:clientHeight
+  bind:clientWidth
+  bind:this={wrapper}
+>
   <canvas bind:this={canvas} />
 </div>
 

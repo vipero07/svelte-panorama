@@ -1,5 +1,10 @@
 # svelte-panorama-component
 
+## 1.0.2
+
+- added fov as an attribute
+- added class as an attribute
+
 ## 1.0.1
 
 - updated dependencies

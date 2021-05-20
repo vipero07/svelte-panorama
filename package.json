@@ -1,5 +1,5 @@
 {
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "svelte-panorama-component",
   "description": "Small footprint fast responsive 360 degree equirectangular image viewer",
   "svelte": "src/index.js",

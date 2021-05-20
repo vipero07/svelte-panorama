@@ -6,6 +6,8 @@ Lightweight standalone responsive 360 degree panorama web component that leverag
 
 - src: exactly the same as src for an <img> image formats that should work are listed in [OGL's TextureLoader](https://github.com/oframe/ogl/blob/0da03dd187f585d74975a50888dca0f75c3e409a/src/extras/TextureLoader.js#L81) it is required. For the component to work correctly it needs to be an equirectangular image.
 - alt: an aria-label applied to the element, this defaults to "Panoramic View" and can be ignored.
+- class: exactly what you would expect, puts a class on the canvas wrapper this can be used to override the default 100% width and height
+- fov: accepts an integer and indicates the field of view in degrees of the projection defaults to 30.
 
 ## Usage
 

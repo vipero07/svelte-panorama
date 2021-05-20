@@ -13,11 +13,7 @@ h4 {
   text-align: center;
 }
 
-svelte-panorama {
-  cursor: grab;
-}
-
-.panorama {
+.panorama-wrapper {
   width: 640px;
   height: 320px;
   max-width: 90%;
@@ -28,6 +24,10 @@ svelte-panorama {
     rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   padding: 0.25rem;
   background: #fff;
+}
+
+.panorama {
+  cursor: grab;
 }
 
 .attribute {
