@@ -1,17 +1,20 @@
 <svelte:options tag="svelte-panorama" />
 
 <script context="module">
-  import {
-    Renderer,
-    Program,
-    Mesh,
-    Camera,
-    TextureLoader,
-    Sphere,
-    Orbit,
-  } from "ogl";
-  import fragment from "./shaders/fragment.glsl";
-  import vertex from "./shaders/vertex.glsl";
+  // import "@babylonjs/core/Helpers/sceneHelpers";
+  // import { ActionManager } from "@babylonjs/core/Actions/actionManager";
+  // import { Action } from "@babylonjs/core/Actions/action";
+
+  import "@babylonjs/core/Materials/standardMaterial";
+  import { Scene } from "@babylonjs/core/scene";
+  import { Engine } from "@babylonjs/core/Engines/engine";
+  import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
+  import { PhotoDome } from "@babylonjs/core/Helpers/photoDome";
+  import { Vector3 } from "@babylonjs/core/Maths/math.vector";
+  import { PointerEventTypes } from "@babylonjs/core/Events/pointerEvents";
+
+  const halfPi = Math.PI / 2;
+  const options = { resolution: 32, size: 1000, useDirectMapping: false };
 </script>
 
 <script>
@@ -20,102 +23,106 @@
   let className = "";
   export let alt = "Panoramic View";
   export { className as class };
-  export let fov = 30;
   export let src;
 
+  /** @type {number} */
   let clientHeight;
+
+  /** @type {number} */
   let clientWidth;
-  let wrapper;
+
+  /** @type {HTMLCanvasElement} */
   let canvas;
 
-  let renderer;
-  let raf;
-  let gl;
+  /** @type {Engine} */
+  let engine;
+
+  /** @type {number} */
+  let zoomLevel = 1;
 
   $: aspect = clientWidth / clientHeight;
-  $: camera = gl && wrapper && makeCamera();
-  $: controls = camera && canvas && makeControls();
-  $: scene = src && gl && makeScene();
-  $: if (renderer && aspect) {
-    renderer.setSize(clientWidth, clientHeight);
-  }
-  $: if (camera && aspect) {
-    camera.perspective({ aspect: aspect });
+  $: if (aspect) {
+    engine.resize();
   }
 
-  function makeCamera() {
-    const camera = new Camera(gl, {
-      fov: fov,
-      aspect: wrapper.clientWidth / wrapper.clientHeight,
+  // /**
+  //  *
+  //  * @param scene {Scene}
+  //  */
+  // function addVr(scene) {
+  //   const vrHelper = scene.createDefaultVRExperience();
+  //   scene.actionManager = new ActionManager(scene);
+  //   scene.actionManager.registerAction(
+  //     Action.ExecuteCodeAction(
+  //       {
+  //         trigger: ActionManager.OnKeyDownTrigger,
+  //         parameters: "s",
+  //       },
+  //       vrHelper.enterVR
+  //     )
+  //   );
+  //   scene.actionManager.registerAction(
+  //     Action.ExecuteCodeAction(
+  //       { trigger: ActionManager.OnKeyDownTrigger, parameters: "e" },
+  //       () => {
+  //         vrHelper.exitVR();
+  //         document.exitFullscreen();
+  //       }
+  //     )
+  //   );
+  // }
+
+  function createScene() {
+    const scene = new Scene(engine);
+    const camera = new ArcRotateCamera(
+      "Camera",
+      -halfPi,
+      halfPi,
+      5,
+      Vector3.Zero(),
+      scene
+    );
+    camera.attachControl(canvas, true);
+    camera.inputs.attached.mousewheel.detachControl(canvas);
+    const dome = new PhotoDome(alt, src, options, scene);
+
+    scene.registerAfterRender(() => {
+      dome.fovMultiplier = zoomLevel;
     });
-    camera.position.set(0, 0, 1);
-    return camera;
-  }
 
-  function makeControls() {
-    return new Orbit(camera, {
-      enablePan: false,
-      enableZoom: true,
-      element: canvas,
-      maxDistance: 1,
-      minDistance: 0,
-    });
-  }
+    scene.onPointerObservable.add((e) => {
+      if (dome === undefined) {
+        return;
+      }
+      const newZoom = zoomLevel + e.event.wheelDelta * -0.0005;
+      zoomLevel = Math.min(Math.max(newZoom, 0.6), 2);
+    }, PointerEventTypes.POINTERWHEEL);
 
-  function makeScene() {
-    return new Mesh(gl, {
-      geometry: new Sphere(gl, {
-        radius: 2,
-        widthSegments: 64,
-      }),
-      program: new Program(gl, {
-        cullFace: gl.FRONT,
-        uniforms: {
-          tMap: {
-            value: TextureLoader.load(gl, {
-              src: src,
-            }),
-          },
-        },
-        vertex: vertex,
-        fragment: fragment,
-      }),
-    });
-  }
-
-  function update() {
-    controls.update();
-    renderer.render({ scene: scene, camera: camera });
-    raf = requestAnimationFrame(update);
+    return scene;
   }
 
   onMount(() => {
-    renderer = new Renderer({
-      canvas: canvas,
-      width: wrapper.clientWidth,
-      height: wrapper.clientHeight,
+    engine = new Engine(canvas, true, {
+      preserveDrawingBuffer: true,
+      stencil: true,
     });
-
-    gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
-
-    raf = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(raf);
+    const scene = createScene();
+    //addVr(scene);
+    engine.runRenderLoop(() => scene.render());
+    return () => engine.stopRenderLoop();
   });
 </script>
 
-<div
+<canvas
   aria-label={alt}
   class={className}
   bind:clientHeight
   bind:clientWidth
-  bind:this={wrapper}
->
-  <canvas bind:this={canvas} />
-</div>
+  bind:this={canvas}
+/>
 
 <style>
-  div {
+  canvas {
     width: 100%;
     height: 100%;
   }

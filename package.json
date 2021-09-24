@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "name": "svelte-panorama-component",
   "description": "Small footprint fast responsive 360 degree equirectangular image viewer",
   "svelte": "src/index.js",
@@ -17,11 +17,12 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "docs": "npx http-server ./docs",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@babylonjs/core": "^4.2.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
-    "ogl": "0.0.76",
     "rollup": "^2.57.0",
     "rollup-plugin-glslify": "^1.2.0",
     "rollup-plugin-svelte": "^7.1.0",
