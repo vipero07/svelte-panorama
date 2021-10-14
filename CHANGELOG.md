@@ -1,8 +1,19 @@
 # svelte-panorama-component
 
-## 1.0.4
+## 1.0.6
 
 - convert from ogl to babylonjs es6 (This seems 10x worse for package size, this is unlikely to be finalized)
+
+## 1.0.5
+
+- fix for broken shader
+- added local test for docs
+- added bundle stat visualization
+
+## 1.0.4
+
+- version bump
+- minor shader changes
 
 ## 1.0.3
 
