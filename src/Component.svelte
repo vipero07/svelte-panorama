@@ -71,7 +71,7 @@
       program: new Program(gl, {
         cullFace: gl.FRONT,
         uniforms: {
-          tMap: {
+          tex: {
             value: TextureLoader.load(gl, {
               src: src,
             }),

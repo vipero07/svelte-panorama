@@ -1,5 +1,10 @@
 # svelte-panorama-component
 
+## 1.0.4
+
+- version bump
+- minor shader changes
+
 ## 1.0.3
 
 - version bump
