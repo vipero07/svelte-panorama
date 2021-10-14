@@ -65,7 +65,7 @@
   function makeScene() {
     return new Mesh(gl, {
       geometry: new Sphere(gl, {
-        radius: 2,
+        radius: 1,
         widthSegments: 64,
       }),
       program: new Program(gl, {

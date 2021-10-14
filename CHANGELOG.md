@@ -1,5 +1,11 @@
 # svelte-panorama-component
 
+## 1.0.5
+
+- fix for broken shader
+- added local test for docs
+- added bundle stat visualization
+
 ## 1.0.4
 
 - version bump

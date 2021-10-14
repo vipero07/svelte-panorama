@@ -3,6 +3,7 @@ import glslify from 'rollup-plugin-glslify';
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const name = pkg.name
 	.replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
@@ -29,7 +30,8 @@ export default [{
 	input: 'src/index.js',
 	output: [
 		{ file: `dist/index.min.mjs`, 'format': 'es' },
-		{ file: `dist/index.min.js`, 'format': 'umd', name }
+		{ file: `dist/index.min.js`, 'format': 'umd', name },
+		{ file: `docs/index.min.js`, 'format': 'umd', name, sourcemap: true }
 	],
 	plugins: [
 		glslify(),
@@ -38,8 +40,12 @@ export default [{
 				customElement: true
 			}
 		}),
+		resolve(),
 		terser(),
-		resolve()
+		visualizer({
+			filename: './docs/stats.html',
+			sourcemap: true
+		})
 	]
 }
 ];
