@@ -1,6 +1,10 @@
 <svelte:options tag="svelte-panorama" />
 
 <script context="module">
+  // import "@babylonjs/core/Helpers/sceneHelpers";
+  // import { ActionManager } from "@babylonjs/core/Actions/actionManager";
+  // import { Action } from "@babylonjs/core/Actions/action";
+
   import "@babylonjs/core/Materials/standardMaterial";
   import { Scene } from "@babylonjs/core/scene";
   import { Engine } from "@babylonjs/core/Engines/engine";
