@@ -3,7 +3,7 @@
 <script context="module">
   // import "@babylonjs/core/Helpers/sceneHelpers";
   // import { ActionManager } from "@babylonjs/core/Actions/actionManager";
-  // import { Action } from "@babylonjs/core/Actions/action";
+  // import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 
   import "@babylonjs/core/Materials/standardMaterial";
   import { Scene } from "@babylonjs/core/scene";
@@ -53,7 +53,7 @@
   //   const vrHelper = scene.createDefaultVRExperience();
   //   scene.actionManager = new ActionManager(scene);
   //   scene.actionManager.registerAction(
-  //     Action.ExecuteCodeAction(
+  //     ExecuteCodeAction(
   //       {
   //         trigger: ActionManager.OnKeyDownTrigger,
   //         parameters: "s",
@@ -62,7 +62,7 @@
   //     )
   //   );
   //   scene.actionManager.registerAction(
-  //     Action.ExecuteCodeAction(
+  //     ExecuteCodeAction(
   //       { trigger: ActionManager.OnKeyDownTrigger, parameters: "e" },
   //       () => {
   //         vrHelper.exitVR();
@@ -107,7 +107,7 @@
       stencil: true,
     });
     const scene = createScene();
-    //addVr(scene);
+    // addVr(scene);
     engine.runRenderLoop(() => scene.render());
     return () => engine.stopRenderLoop();
   });
