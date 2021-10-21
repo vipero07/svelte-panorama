@@ -1,10 +1,15 @@
 <svelte:options tag="svelte-panorama" />
 
 <script context="module">
-  import { Renderer, Program, Mesh, Camera, Sphere, Orbit } from "ogl";
-  import { loadTextureAsync } from "./loader.mjs";
-  import fragment from "./shaders/fragment.glsl";
-  import vertex from "./shaders/vertex.glsl";
+  import {
+    loadTextureAsync,
+    makeRenderer,
+    makeSphere,
+    makeCamera,
+    makeControls,
+    makeProgram,
+    makeScene,
+  } from "./gl";
 </script>
 
 <script>
@@ -16,99 +21,53 @@
   export let fov = 30;
   export let src;
 
-  let clientHeight;
-  let clientWidth;
   let wrapper;
   let canvas;
-
-  let renderer;
   let raf;
-  let gl;
-  let texture;
-
-  $: aspect = clientWidth / clientHeight;
-  $: camera = gl && wrapper && makeCamera();
-  $: controls = camera && canvas && makeControls();
-  $: scene = src && gl && texture && makeScene();
-  $: if (renderer && aspect) {
-    renderer.setSize(clientWidth, clientHeight);
-  }
-  $: if (camera && aspect) {
-    camera.perspective({ aspect: aspect });
-  }
-
-  function makeCamera() {
-    const camera = new Camera(gl, {
-      fov: fov,
-      aspect: wrapper.clientWidth / wrapper.clientHeight,
-    });
-    camera.position.set(0, 0, 1);
-    return camera;
-  }
-
-  function makeControls() {
-    return new Orbit(camera, {
-      enablePan: false,
-      enableZoom: true,
-      element: canvas,
-      maxDistance: 1,
-      minDistance: 0,
-    });
-  }
-
-  function makeScene() {
-    return new Mesh(gl, {
-      geometry: new Sphere(gl, {
-        radius: 1,
-        widthSegments: 64,
-      }),
-      program: new Program(gl, {
-        cullFace: gl.FRONT,
-        uniforms: {
-          tex: {
-            value: texture,
-          },
-        },
-        vertex: vertex,
-        fragment: fragment,
-      }),
-    });
-  }
-
-  function update() {
-    controls.update();
-    renderer.render({ scene: scene, camera: camera });
-    raf = requestAnimationFrame(update);
-  }
 
   onMount(() => {
     const loader = loadTextureAsync(src);
+    const { clientWidth, clientHeight } = wrapper;
+    const renderer = new makeRenderer(canvas, clientWidth, clientHeight);
 
-    renderer = new Renderer({
-      canvas: canvas,
-      width: wrapper.clientWidth,
-      height: wrapper.clientHeight,
-    });
-
-    gl = renderer.gl;
+    const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
+    const sphere = makeSphere(gl);
+    const camera = makeCamera(gl, fov, clientWidth, clientHeight);
+    const controls = makeControls(camera, canvas);
+
+    const resizeObserver = new ResizeObserver((entries) =>
+      entries.every(({ target: { clientWidth, clientHeight } }) => {
+        renderer.setSize(clientWidth, clientHeight);
+        camera.perspective({ aspect: clientWidth / clientHeight });
+      })
+    );
+    resizeObserver.observe(wrapper);
+
     loader.then((loaded) => {
-      texture = loaded(gl);
+      const texture = loaded(gl);
+      const program = makeProgram(gl, texture);
+      const scene = makeScene(gl, sphere, program);
+
+      function update() {
+        controls.update();
+        renderer.render({ scene: scene, camera: camera });
+        raf = requestAnimationFrame(update);
+      }
+
       raf = requestAnimationFrame(update);
     });
 
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      resizeObserver.unobserve(wrapper);
+      resizeObserver.disconnect();
+    };
   });
 </script>
 
-<div
-  aria-label={alt}
-  class={className}
-  bind:clientHeight
-  bind:clientWidth
-  bind:this={wrapper}
->
+<div aria-label={alt} class={className} bind:this={wrapper}>
   <canvas bind:this={canvas} />
 </div>
 

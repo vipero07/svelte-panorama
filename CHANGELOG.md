@@ -1,5 +1,10 @@
 # svelte-panorama-component
 
+## 1.0.8
+
+- resize logic fix
+- some code refactoring for better clarity
+
 ## 1.0.7
 
 - async image loader to improve load times, percieved performance, and final bundle size
