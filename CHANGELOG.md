@@ -1,5 +1,9 @@
 # svelte-panorama-component
 
+## 1.0.6
+
+- dependencies bump
+
 ## 1.0.5
 
 - fix for broken shader
