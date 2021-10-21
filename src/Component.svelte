@@ -1,15 +1,8 @@
 <svelte:options tag="svelte-panorama" />
 
 <script context="module">
-  import {
-    Renderer,
-    Program,
-    Mesh,
-    Camera,
-    TextureLoader,
-    Sphere,
-    Orbit,
-  } from "ogl";
+  import { Renderer, Program, Mesh, Camera, Sphere, Orbit } from "ogl";
+  import { loadTextureAsync } from "./loader.mjs";
   import fragment from "./shaders/fragment.glsl";
   import vertex from "./shaders/vertex.glsl";
 </script>
@@ -31,11 +24,12 @@
   let renderer;
   let raf;
   let gl;
+  let texture;
 
   $: aspect = clientWidth / clientHeight;
   $: camera = gl && wrapper && makeCamera();
   $: controls = camera && canvas && makeControls();
-  $: scene = src && gl && makeScene();
+  $: scene = src && gl && texture && makeScene();
   $: if (renderer && aspect) {
     renderer.setSize(clientWidth, clientHeight);
   }
@@ -72,9 +66,7 @@
         cullFace: gl.FRONT,
         uniforms: {
           tex: {
-            value: TextureLoader.load(gl, {
-              src: src,
-            }),
+            value: texture,
           },
         },
         vertex: vertex,
@@ -90,6 +82,8 @@
   }
 
   onMount(() => {
+    const loader = loadTextureAsync(src);
+
     renderer = new Renderer({
       canvas: canvas,
       width: wrapper.clientWidth,
@@ -99,7 +93,11 @@
     gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
-    raf = requestAnimationFrame(update);
+    loader.then((loaded) => {
+      texture = loaded(gl);
+      raf = requestAnimationFrame(update);
+    });
+
     return () => cancelAnimationFrame(raf);
   });
 </script>
