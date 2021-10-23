@@ -1,5 +1,9 @@
 # svelte-panorama-component
 
+## 1.0.9
+
+- bloat removal
+
 ## 1.0.8
 
 - resize logic fix

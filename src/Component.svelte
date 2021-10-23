@@ -1,15 +1,8 @@
 <svelte:options tag="svelte-panorama" />
 
 <script context="module">
-  import {
-    loadTextureAsync,
-    makeRenderer,
-    makeSphere,
-    makeCamera,
-    makeControls,
-    makeProgram,
-    makeScene,
-  } from "./gl";
+  import { Renderer, Sphere, Orbit, Mesh } from "ogl";
+  import { loadTextureAsync, makeCamera, makeProgram } from "./gl";
 </script>
 
 <script>
@@ -28,14 +21,30 @@
   onMount(() => {
     const loader = loadTextureAsync(src);
     const { clientWidth, clientHeight } = wrapper;
-    const renderer = new makeRenderer(canvas, clientWidth, clientHeight);
+    const renderer = new Renderer({
+      canvas: canvas,
+      width: clientWidth,
+      height: clientHeight,
+    });
 
     const gl = renderer.gl;
     gl.clearColor(1, 1, 1, 1);
 
-    const sphere = makeSphere(gl);
+    const sphere = new Sphere(gl, {
+      radius: 1,
+      widthSegments: 64,
+    });
+    console.log(sphere);
+
     const camera = makeCamera(gl, fov, clientWidth, clientHeight);
-    const controls = makeControls(camera, canvas);
+    const controls = new Orbit(camera, {
+      enablePan: false,
+      enableZoom: true,
+      //zoomStyle: 0,
+      element: canvas,
+      maxDistance: 1,
+      minDistance: 0,
+    });
 
     const resizeObserver = new ResizeObserver((entries) =>
       entries.every(({ target: { clientWidth, clientHeight } }) => {
@@ -48,7 +57,10 @@
     loader.then((loaded) => {
       const texture = loaded(gl);
       const program = makeProgram(gl, texture);
-      const scene = makeScene(gl, sphere, program);
+      const scene = new Mesh(gl, {
+        geometry: sphere,
+        program: program,
+      });
 
       function update() {
         controls.update();
