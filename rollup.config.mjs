@@ -2,7 +2,7 @@ import svelte from 'rollup-plugin-svelte';
 import glslify from 'rollup-plugin-glslify';
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: "json" };
 import { visualizer } from 'rollup-plugin-visualizer';
 
 const name = pkg.name
@@ -29,8 +29,8 @@ export default [{
 {
 	input: 'src/index.js',
 	output: [
-		{ file: `dist/index.min.mjs`, 'format': 'es' },
-		{ file: `dist/index.min.js`, 'format': 'umd', name },
+		{ file: `dist/index.min.mjs`, 'format': 'es', sourcemap: true },
+		{ file: `dist/index.min.js`, 'format': 'umd', name, sourcemap: true },
 		{ file: `docs/index.min.js`, 'format': 'umd', name, sourcemap: true }
 	],
 	plugins: [

@@ -1,5 +1,12 @@
 # svelte-panorama-component
 
+## 1.1.0
+
+- updated dependencies
+- svelte from 3.44.0 to 4.2.2
+- changed component name to Panorama
+- added `svelte-kit-example`
+
 ## 1.0.9
 
 - bloat removal

@@ -5,7 +5,7 @@ Lightweight standalone responsive 360 degree panorama web component that leverag
 ## Attributes
 
 - src: exactly the same as src for an <img> image formats that should work are listed in [OGL's TextureLoader](https://github.com/oframe/ogl/blob/0da03dd187f585d74975a50888dca0f75c3e409a/src/extras/TextureLoader.js#L81) it is required. For the component to work correctly it needs to be an equirectangular image.
-- alt: an aria-label applied to the element, this defaults to "Panoramic View" and can be ignored.
+- alt: an aria-label applied to the element, this defaults to "Panoramic View" and can be ignored, but is for accessibility.
 - class: exactly what you would expect, puts a class on the canvas wrapper this can be used to override the default 100% width and height
 - fov: accepts an integer and indicates the field of view in degrees of the projection defaults to 30.
 
@@ -20,6 +20,12 @@ Lightweight standalone responsive 360 degree panorama web component that leverag
 
 <Panorama src="some-equirectangular-360-image.jpg" alt="Pretty Sky" />
 ```
+
+*Important* You will need to use a glsl loader plugin to use this way. See Issue [#3](https://github.com/vipero07/svelte-panorama/issues/3)
+ - rollup [rollup-plugin-glslify](https://www.npmjs.com/package/rollup-plugin-glslify)
+ - vite / sveltekit [vite-plugin-glsl](https://www.npmjs.com/package/vite-plugin-glsl)
+
+Check `svelte-kit-example/src/routes/+page.svelte` and `svelte-kit-example/vite.config.js` for svelte-kit details. Check `rollup.config.mjs` for rollup details.
 
 ### Anything else as a web component
 

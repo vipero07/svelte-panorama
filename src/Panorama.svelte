@@ -1,4 +1,4 @@
-<svelte:options tag="svelte-panorama" />
+<svelte:options customElement="svelte-panorama" />
 
 <script context="module">
   import { Renderer, Sphere, Orbit, Mesh } from "ogl";
