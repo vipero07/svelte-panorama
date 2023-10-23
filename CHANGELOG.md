@@ -1,5 +1,9 @@
 # svelte-panorama-component
 
+## 1.2.0
+
+- removed requirement for glsl bundler plugin for svelte
+
 ## 1.1.0
 
 - updated dependencies

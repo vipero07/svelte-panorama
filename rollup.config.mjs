@@ -1,5 +1,4 @@
 import svelte from 'rollup-plugin-svelte';
-import glslify from 'rollup-plugin-glslify';
 import { terser } from 'rollup-plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import pkg from './package.json' assert { type: "json" };
@@ -17,7 +16,6 @@ export default [{
 		{ file: pkg.main, 'format': 'umd', name }
 	],
 	plugins: [
-		glslify(),
 		svelte({ 
 			compilerOptions: {
 				customElement: true
@@ -34,7 +32,6 @@ export default [{
 		{ file: `docs/index.min.js`, 'format': 'umd', name, sourcemap: true }
 	],
 	plugins: [
-		glslify(),
 		svelte({ 
 			compilerOptions: {
 				customElement: true

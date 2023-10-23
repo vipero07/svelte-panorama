@@ -13,7 +13,7 @@ Lightweight standalone responsive 360 degree panorama web component that leverag
 
 ### Svelte
 
-```
+```svelte
 <script>
   import Panorama from 'svelte-panorama-component';
 </script>
@@ -21,11 +21,7 @@ Lightweight standalone responsive 360 degree panorama web component that leverag
 <Panorama src="some-equirectangular-360-image.jpg" alt="Pretty Sky" />
 ```
 
-*Important* You will need to use a glsl loader plugin to use this way. See Issue [#3](https://github.com/vipero07/svelte-panorama/issues/3)
- - rollup [rollup-plugin-glslify](https://www.npmjs.com/package/rollup-plugin-glslify)
- - vite / sveltekit [vite-plugin-glsl](https://www.npmjs.com/package/vite-plugin-glsl)
-
-Check `svelte-kit-example/src/routes/+page.svelte` and `svelte-kit-example/vite.config.js` for svelte-kit details. Check `rollup.config.mjs` for rollup details.
+> Check `svelte-kit-example/src/routes/+page.svelte` for rollup details.
 
 ### Anything else as a web component
 
@@ -33,7 +29,7 @@ Check `svelte-kit-example/src/routes/+page.svelte` and `svelte-kit-example/vite.
 
 Add .js or .mjs file however you want, either in a bundler or directly to the page via Script tag, then...
 
-```
+```html
 <svelte-panorama src="some-equirectangular-360-image.jpg" alt="Pretty Sky"></svelte-panorama>
 ```
 
