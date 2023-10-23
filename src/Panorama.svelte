@@ -1,4 +1,6 @@
-<svelte:options customElement="svelte-panorama" />
+<!-- svelte-ignore tag-option-deprecated -->
+<!-- svelte-ignore missing-custom-element-compile-options -->
+<svelte:options tag="svelte-panorama" />
 
 <script context="module">
   import { Renderer, Sphere, Orbit, Mesh } from "ogl";
@@ -12,10 +14,22 @@
   export let alt = "Panoramic View";
   export { className as class };
   export let fov = 30;
+  /**
+   * @type {string}
+   */
   export let src;
 
+  /**
+   * @type {HTMLDivElement}
+   */
   let wrapper;
+  /**
+   * @type {HTMLCanvasElement}
+   */
   let canvas;
+  /**
+   * @type {number}
+   */
   let raf;
 
   onMount(() => {

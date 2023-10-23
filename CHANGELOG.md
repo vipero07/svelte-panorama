@@ -1,5 +1,9 @@
 # svelte-panorama-component
 
+## 1.3.0
+
+- reverted svelte from 4.2.2 to 3.59.2, apparently 4.2.2 doesn't generate onmount for custom components anymore
+
 ## 1.2.0
 
 - removed requirement for glsl bundler plugin for svelte
